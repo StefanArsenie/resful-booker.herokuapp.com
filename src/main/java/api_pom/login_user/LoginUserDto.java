@@ -1,10 +1,12 @@
-package api_pom;
+package api_pom.login_user;
 
-public class AuthorizationDto {
+public class LoginUserDto {
     private String username;
     private String password;
+    public LoginUserDto(){
 
-    public AuthorizationDto(String username, String password) {
+    }
+    public LoginUserDto(String username, String password) {
         this.username = username;
         this.password = password;
     }
