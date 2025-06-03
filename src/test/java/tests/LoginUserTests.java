@@ -26,6 +26,7 @@ public class LoginUserTests {
     @Test
     public void loginUserWithWrongAdminName() {
         loginUserResponseDto = loginUserRequest.login("addmin", Constants.PASSWORD);
+        response = loginUserRequest.loginResponse("addmin",Constants.PASSWORD);
         Assert.assertEquals(response.statusCode(), 200);
         Assert.assertEquals(loginUserResponseDto.getReason(), "Bad credentials");
     }
