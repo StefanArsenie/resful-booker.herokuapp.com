@@ -1,6 +1,7 @@
 name: Run API Tests with Report1
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '25 18 * * *'
 
