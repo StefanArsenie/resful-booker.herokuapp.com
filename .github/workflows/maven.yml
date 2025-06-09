@@ -37,12 +37,14 @@ jobs:
           name: allure-results
           path: target/allure-results/
 
-      - name: Install Allure CLI
+      - name: Download and Extract Allure CLI
         run: |
           ALLURE_VERSION=2.27.0
           wget -nv https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/${ALLURE_VERSION}/allure-commandline-${ALLURE_VERSION}.tgz
           tar -xzf allure-commandline-${ALLURE_VERSION}.tgz
-          echo "$PWD/allure-commandline-${ALLURE_VERSION}/bin" >> $GITHUB_PATH
+
+      - name: Add Allure to PATH
+        run: echo "$PWD/allure-commandline-2.27.0/bin" >> $GITHUB_PATH
 
       - name: Generate Allure Report
         if: always()
