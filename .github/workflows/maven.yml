@@ -44,7 +44,7 @@ jobs:
           tar -xzf allure-commandline-${ALLURE_VERSION}.tgz
 
       - name: Add Allure to PATH
-        run: echo "$PWD/allure-commandline-2.27.0/bin" >> $GITHUB_PATH
+        run: echo "PATH=$PATH:$PWD/allure-commandline-2.27.0/bin" >> $GITHUB_ENV
 
       - name: Generate Allure Report
         if: always()
