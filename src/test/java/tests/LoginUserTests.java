@@ -2,12 +2,13 @@ package tests;
 
 import api_pom.login_user.LoginUserResponseDto;
 import io.restassured.response.Response;
+import lombok.extern.log4j.Log4j2;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import requests_dto.LoginUserRequest;
 import utils.Constants;
-
+@Log4j2
 public class LoginUserTests {
     LoginUserResponseDto loginUserResponseDto;
     LoginUserRequest loginUserRequest;

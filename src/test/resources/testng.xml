@@ -1,8 +1,13 @@
-<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="API Test Suite">
-    <test name="Login Tests">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <listeners>
+        <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
+    </listeners>
+    <test verbose="2" preserve-order="true" name="E:/MyPortfolio/resful-booker.herokuapp.com">
         <classes>
-            <class name="tests.LoginUserTests"/>
+            <class name="tests.LoginUserTests">
+            </class>
         </classes>
     </test>
 </suite>
