@@ -1,9 +1,9 @@
-name: Run API Tests
+name: Run API Tests with Report1
 
 on:
+  workflow_dispatch:
   schedule:
-    - cron: '0 6 * * *'  # Every day at 06:00 UTC
-  workflow_dispatch:     # Also allows manual trigger from GitHub UI
+    - cron: '25 18 * * *'  # Runs every day at 18:25 UTC
 
 jobs:
   test:
@@ -13,24 +13,26 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Java 17
+      - name: Set up Java 17 and Maven
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
-
-      - name: Set up Maven
-        uses: s4u/setup-maven-action@v1
-        with:
-          maven-version: '3.9.6'
-
-      - name: Cache Maven packages
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
+          cache: 'maven'
 
       - name: Run API Tests
         run: mvn clean test
+
+      - name: Upload Surefire Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: surefire-reports
+          path: target/surefire-reports/
+
+      - name: Upload Allure Results (if available)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results
+          path: target/allure-results/
