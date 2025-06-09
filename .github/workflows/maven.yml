@@ -39,9 +39,10 @@ jobs:
 
       - name: Install Allure CLI
         run: |
-          curl -o allure.zip -L https://github.com/allure-framework/allure2/releases/download/2.29.1/allure-2.29.1.zip
-          unzip -q allure.zip -d allure
-          echo "$(pwd)/allure/allure-2.29.1/bin" >> $GITHUB_PATH
+          ALLURE_VERSION=2.29.1
+          wget -nv https://github.com/allure-framework/allure2/releases/download/${ALLURE_VERSION}/allure-${ALLURE_VERSION}.tgz
+          tar -xzf allure-${ALLURE_VERSION}.tgz
+          echo "$PWD/allure-${ALLURE_VERSION}/bin" >> $GITHUB_PATH
 
       - name: Generate Allure Report
         if: always()
