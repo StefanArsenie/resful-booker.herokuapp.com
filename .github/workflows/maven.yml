@@ -39,7 +39,7 @@ jobs:
 
       - name: Install Allure CLI
         run: |
-          ALLURE_VERSION=2.29.1
+          ALLURE_VERSION=2.27.0
           wget -nv https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/${ALLURE_VERSION}/allure-commandline-${ALLURE_VERSION}.tgz
           tar -xzf allure-commandline-${ALLURE_VERSION}.tgz
           echo "$PWD/allure-commandline-${ALLURE_VERSION}/bin" >> $GITHUB_PATH
