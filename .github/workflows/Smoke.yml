@@ -66,12 +66,11 @@ jobs:
           cp -r target/allure-report docs
 
       - name: Deploy to GitHub Pages
-        if: always()
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs
-          publish_branch: gh-pages   
+          publish_dir: ./target/allure-report
+          publish_branch: gh-pages
           force_orphan: true
           
       - name: Check report exists
