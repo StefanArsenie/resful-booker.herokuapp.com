@@ -42,7 +42,8 @@ jobs:
           ALLURE_VERSION=2.27.0
           wget -nv https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/${ALLURE_VERSION}/allure-commandline-${ALLURE_VERSION}.tgz
           tar -xzf allure-commandline-${ALLURE_VERSION}.tgz
-          mv allure-${ALLURE_VERSION} allure
+          EXTRACTED_DIR=$(tar -tzf allure-commandline-${ALLURE_VERSION}.tgz | head -1 | cut -f1 -d"/")
+          mv "$EXTRACTED_DIR" allure
 
       - name: Add Allure to PATH
         run: echo "${{ github.workspace }}/allure/bin" >> $GITHUB_PATH
