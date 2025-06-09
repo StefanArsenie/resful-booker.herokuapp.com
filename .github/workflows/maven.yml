@@ -38,7 +38,7 @@ jobs:
           path: target/allure-results/
 
       - name: Download and Extract Allure CLI
-        run: 
+        run: |
           ALLURE_VERSION=2.27.0
           wget -nv https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/${ALLURE_VERSION}/allure-commandline-${ALLURE_VERSION}.tgz
           tar -xzf allure-commandline-${ALLURE_VERSION}.tgz
