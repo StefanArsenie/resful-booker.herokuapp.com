@@ -1,0 +1,74 @@
+name: Run API Login Tests with Report
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 15 * * *'  # Runs daily at 15:30 UTC
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17 and Maven
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'maven'
+
+      - name: Run API Tests
+        run: mvn clean test
+
+      - name: Upload Surefire Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: surefire-reports
+          path: target/surefire-reports/
+
+      - name: Upload Allure Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results
+          path: target/allure-results/
+
+      - name: Download and Extract Allure CLI
+        run: |
+          ALLURE_VERSION=2.27.0
+          wget -nv https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/${ALLURE_VERSION}/allure-commandline-${ALLURE_VERSION}.tgz
+          tar -xzf allure-commandline-${ALLURE_VERSION}.tgz
+          mv allure-commandline-${ALLURE_VERSION} allure
+
+      - name: Add Allure to PATH
+        run: echo "${{ github.workspace }}/allure/bin" >> $GITHUB_PATH
+
+      - name: Generate Allure Report
+        if: always()
+        run: allure generate target/allure-results --clean -o target/allure-report
+
+      - name: Upload Allure HTML Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: target/allure-report/
+
+      - name: Copy report to docs folder
+        if: always()
+        run: |
+          rm -rf docs
+          cp -r target/allure-report docs
+
+      - name: Deploy to GitHub Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          publish_branch: gh-pages   # ✅ important if you haven't configured it in Settings
+          force_orphan: true         # ✅ ensures clean state (no commit history)
