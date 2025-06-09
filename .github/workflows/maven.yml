@@ -3,7 +3,7 @@ name: Run API Login Tests with Report
 on:
   workflow_dispatch:
   schedule:
-    - cron: '25 18 * * *'  # Runs every day at 18:25 UTC
+    - cron: '30 15 * * *'  # Runs every day at 15:30 UTC
 
 jobs:
   test:
@@ -40,9 +40,9 @@ jobs:
       - name: Install Allure CLI
         run: |
           ALLURE_VERSION=2.29.1
-          wget -nv https://github.com/allure-framework/allure2/releases/download/${ALLURE_VERSION}/allure-${ALLURE_VERSION}.tgz
-          tar -xzf allure-${ALLURE_VERSION}.tgz
-          echo "$PWD/allure-${ALLURE_VERSION}/bin" >> $GITHUB_PATH
+          wget -nv https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/${ALLURE_VERSION}/allure-commandline-${ALLURE_VERSION}.tgz
+          tar -xzf allure-commandline-${ALLURE_VERSION}.tgz
+          echo "$PWD/allure-commandline-${ALLURE_VERSION}/bin" >> $GITHUB_PATH
 
       - name: Generate Allure Report
         if: always()
