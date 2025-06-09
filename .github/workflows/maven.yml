@@ -1,4 +1,4 @@
-name: Run API Tests with Report1
+name: Run API Login Tests with Report
 
 on:
   workflow_dispatch:
@@ -36,3 +36,20 @@ jobs:
         with:
           name: allure-results
           path: target/allure-results/
+
+      - name: Install Allure CLI
+        run: |
+          curl -o allure.zip -L https://github.com/allure-framework/allure2/releases/download/2.29.1/allure-2.29.1.zip
+          unzip -q allure.zip -d allure
+          echo "$(pwd)/allure/allure-2.29.1/bin" >> $GITHUB_PATH
+
+      - name: Generate Allure Report
+        if: always()
+        run: allure generate target/allure-results --clean -o target/allure-report
+
+      - name: Upload Allure HTML Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: target/allure-report/
