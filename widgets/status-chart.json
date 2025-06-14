@@ -1,0 +1,1 @@
+[{"uid":"118b4d8129f1033a","name":"loginUserWithWrongAdminName","time":{"start":1749915410591,"stop":1749915410832,"duration":241},"status":"passed","severity":"normal"},{"uid":"c5bd48881455fc20","name":"loginUserWithCorrectCredentials","time":{"start":1749915407991,"stop":1749915410513,"duration":2522},"status":"passed","severity":"normal"}]

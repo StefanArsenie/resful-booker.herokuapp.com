@@ -1,0 +1,3 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Sat Jun 14 15:36:50 UTC 2025","Sat Jun 14 15:36:50 UTC 2025","241","All Test Suite","E:/MyPortfolio/resful-booker.herokuapp.com","tests.LoginUserTests","tests.LoginUserTests","loginUserWithWrongAdminName","loginUserWithWrongAdminName","Verify login with invalid credentials"
+"passed","Sat Jun 14 15:36:47 UTC 2025","Sat Jun 14 15:36:50 UTC 2025","2522","All Test Suite","E:/MyPortfolio/resful-booker.herokuapp.com","tests.LoginUserTests","tests.LoginUserTests","loginUserWithCorrectCredentials","loginUserWithCorrectCredentials","Verify login with valid credentials"
