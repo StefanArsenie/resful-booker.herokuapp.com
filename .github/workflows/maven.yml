@@ -1,4 +1,4 @@
-name: Run API Login Tests with Report
+name: Run API Login Tests with Report on Multiple Environments
 
 on:
   workflow_dispatch:
@@ -8,6 +8,9 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        environment: [DEV, INT, UAT]
 
     steps:
       - name: Checkout code
@@ -20,21 +23,25 @@ jobs:
           java-version: '17'
           cache: 'maven'
 
-      - name: Run API Tests
-        run: mvn clean test
+      - name: Run API Tests on ${{ matrix.environment }}
+        env:
+          TEST_ENV: ${{ matrix.environment }}
+        run: |
+          echo "Running tests on environment: $TEST_ENV"
+          mvn clean test -Denv=$TEST_ENV
 
-      - name: Upload Surefire Reports
+      - name: Upload Surefire Reports (${{ matrix.environment }})
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: surefire-reports
+          name: surefire-reports-${{ matrix.environment }}
           path: target/surefire-reports/
 
-      - name: Upload Allure Results
+      - name: Upload Allure Results (${{ matrix.environment }})
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: allure-results
+          name: allure-results-${{ matrix.environment }}
           path: target/allure-results/
 
       - name: Download and Extract Allure CLI
@@ -48,24 +55,24 @@ jobs:
       - name: Add Allure to PATH
         run: echo "${{ github.workspace }}/allure/bin" >> $GITHUB_PATH
 
-      - name: Generate Allure Report
+      - name: Generate Allure Report (${{ matrix.environment }})
         if: always()
         run: allure generate target/allure-results --clean -o target/allure-report
 
-      - name: Upload Allure HTML Report
+      - name: Upload Allure HTML Report (${{ matrix.environment }})
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: allure-report
+          name: allure-report-${{ matrix.environment }}
           path: target/allure-report/
 
-      - name: Copy report to docs folder
+      - name: Copy report to docs folder (${{ matrix.environment }})
         if: always()
         run: |
           rm -rf docs
           cp -r target/allure-report docs
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages (${{ matrix.environment }})
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -73,5 +80,5 @@ jobs:
           publish_branch: gh-pages
           force_orphan: true
           
-      - name: Check report exists
+      - name: Check report exists (${{ matrix.environment }})
         run: ls -R docs
