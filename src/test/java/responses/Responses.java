@@ -1,10 +1,13 @@
 package responses;
 
+import io.restassured.filter.log.RequestLoggingFilter;
+import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
 public class Responses {
     public Response post(RequestSpecification spec, String endpoint, Object body) {
+        spec.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
         if (body != null) {
             spec.body(body);
         }
