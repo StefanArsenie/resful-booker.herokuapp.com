@@ -1,0 +1,4 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Tue Jul 29 15:48:09 UTC 2025","Tue Jul 29 15:48:11 UTC 2025","1920","","tests.LoginUserTest","","tests.LoginUserTest","loginUserWithCorrectCredentials","loginUserWithCorrectCredentials()","Verify login with valid credentials"
+"passed","Tue Jul 29 15:48:11 UTC 2025","Tue Jul 29 15:48:11 UTC 2025","73","","tests.LoginUserTest","","tests.LoginUserTest","loginUserWithWrongAdminName","loginUserWithWrongAdminName()","Verify login with invalid credentials"
+"passed","Tue Jul 29 15:48:11 UTC 2025","Tue Jul 29 15:48:11 UTC 2025","99","","tests.CreateNewBookingTest","","tests.CreateNewBookingTest","createNewBookingWithPaidDeposit","createNewBookingWithPaidDeposit()","Testing if depositpaid is true in response"
